@@ -68,7 +68,7 @@ app.get('/nft/:id', (req, res) => {
     const nftData = {
         name: "Mini Land",
         description: "Hold 5x earn 10 $RON/day Hold 10x earn 25 $RON/day Hold 20x earn 55 $RON/day",
-        image: "191.252.179.221/nft/images/mini-land.gif",
+        image: "191.252.179.221:3000/nft/images/mini-land.gif",
         external_url: "http://191.252.179.221"
     };
     
