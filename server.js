@@ -46,7 +46,8 @@ app.get('/', (req, res) => {
         message: 'API de NFTs MavisRoads GameFi',
         version: '1.0.0',
         endpoints: {
-            'GET /nft/:id': 'Retorna dados da NFT pelo ID'
+            'GET /nft/:id': 'Retorna dados da NFT pelo ID',
+            'GET /nft/medium/:id': 'Retorna dados da NFT Medium pelo ID'
         }
     });
 });
@@ -75,6 +76,30 @@ app.get('/nft/:id', (req, res) => {
     res.json(nftData);
 });
 
+// Rota para buscar NFT Medium por ID
+app.get('/nft/medium/:id', (req, res) => {
+    const { id } = req.params;
+    
+    // Verificar se o ID é válido
+    if (!isValidId(id)) {
+        return res.status(404).json({
+            error: 'NFT não encontrada',
+            message: `ID '${id}' não é válido ou não existe`,
+            validIds: getValidIds()
+        });
+    }
+    
+    // Retornar os dados da NFT Medium
+    const nftData = {
+        name: "Medium Land",
+        description: "Hold 5x earn 20 $RON/day Hold 10x earn 50 $RON/day Hold 20x earn 110 $RON/day",
+        image: "191.252.179.221:3000/nft/images/medium-land.gif",
+        external_url: "http://191.252.179.221"
+    };
+    
+    res.json(nftData);
+});
+
 // Rota para listar todos os IDs válidos (útil para debug)
 app.get('/ids', (req, res) => {
     const validIds = getValidIds();
@@ -89,7 +114,7 @@ app.use('*', (req, res) => {
     res.status(404).json({
         error: 'Rota não encontrada',
         message: 'A rota solicitada não existe',
-        availableRoutes: ['/', '/nft/:id', '/ids']
+        availableRoutes: ['/', '/nft/:id', '/nft/medium/:id', '/ids']
     });
 });
 
